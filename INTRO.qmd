@@ -1,0 +1,73 @@
+---
+title: "Introducción"
+format: html
+editor: visual
+---
+
+## pkgs
+
+-   Para poner un chunk de código CTRL/CMD + ALT + I
+
+-   Para correr todo un chunk: CTRL + SHIFT + ENTER
+
+-   Para correr solo una línea
+
+```{r}
+library(tidyverse)
+library(fpp3)
+```
+
+Si solo vas a usar una función de una paquetería una sola vez, en vez de cargarla, haz esto:
+
+```{r}
+readxl::read_excel()
+```
+
+## Turismo
+
+```{r}
+mpg
+tourism
+```
+
+```{r}
+distinct(tourism, State)
+```
+
+```{r}
+distinct(filter(tourism, State == "Victoria"), Region)
+```
+
+```{r}
+filter(tourism, State == "Victoria" , Region == "Lakes")
+```
+
+```{r}
+summarise(group_by(as_tibble(filter(tourism, State == "Victoria" , Region == "Lakes")),Purpose), media = mean(Trips))
+```
+
+```{r}
+tourism |> 
+  filter(State == "Victoria", Region == "Lakes") |> 
+  as_tibble() |> 
+  group_by(Purpose) |> 
+  summarise(media = mean(Trips))
+```
+
+```{r}
+tourism |> 
+  filter(State == "Victoria", Region == "Lakes") |> 
+  autoplot(Trips) +
+  facet_wrap(vars(Purpose), scale = "free_y") + 
+  theme(legend.position = "none")
+```
+
+```{r}
+library(readr)
+```
+
+```{r}
+tourism |> 
+  filter(State == "Victoria", Region == "Lakes") |>
+  write_csv("Victoria.csv")
+```
