@@ -70,4 +70,6 @@ library(readr)
 tourism |> 
   filter(State == "Victoria", Region == "Lakes") |>
   write_csv("Victoria.csv")
+
+  Prueba
 ```
